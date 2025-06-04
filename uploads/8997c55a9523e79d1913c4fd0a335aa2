@@ -1,0 +1,56 @@
+[
+  {
+    "subject": "Physics",
+    "chapter": "Fluid Mechanics - Basic",
+    "class": "Class 11",
+    "unit": "Mechanics 2",
+    "yearWiseQuestionCount": {
+      "2019": 1,
+      "2020": 3,
+      "2021": 2,
+      "2022": 1,
+      "2023": 0,
+      "2024": 4,
+      "2025": 5
+    },
+    "questionSolved": 0,
+    "status": "Not Started",
+    "isWeakChapter": false
+  },
+  {
+    "subject": "Chemistry",
+    "chapter": "Introduction to Organic Chemistry",
+    "class": "Class 11",
+    "unit": "Organic Chemistry",
+    "yearWiseQuestionCount": {
+      "2019": 0,
+      "2020": 2,
+      "2021": 1,
+      "2022": 3,
+      "2023": 1,
+      "2024": 0,
+      "2025": 2
+    },
+    "questionSolved": 1,
+    "status": "In Progress",
+    "isWeakChapter": true
+  },
+  {
+    "subject": "Mathematics",
+    "chapter": "Statistics Introduction",
+    "class": "Class 12",
+    "unit": "Statistics",
+    "yearWiseQuestionCount": {
+      "2019": 1,
+      "2020": 2,
+      "2021": 1,
+      "2022": 1,
+      "2023": 2,
+      "2024": 3,
+      "2025": 2
+    },
+    "questionSolved": 0,
+    "status": "Not Started",
+    "isWeakChapter": false
+  }
+]

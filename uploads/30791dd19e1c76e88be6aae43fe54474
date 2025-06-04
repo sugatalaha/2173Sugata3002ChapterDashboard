@@ -1,0 +1,56 @@
+[
+  {
+    "subject": "Physics",
+    "chapter": "Work Power Energy",
+    "class": "Class 11",
+    "unit": "Mechanics 1",
+    "yearWiseQuestionCount": {
+      "2019": 10,
+      "2020": 4,
+      "2021": 9,
+      "2022": 10,
+      "2023": 2,
+      "2024": 7,
+      "2025": 5
+    },
+    "questionSolved": 0,
+    "status": "Not Started",
+    "isWeakChapter": true
+  },
+  {
+    "subject": "Chemistry",
+    "chapter": "Thermodynamics (C)",
+    "class": "Class 11",
+    "unit": "Physical Chemistry",
+    "yearWiseQuestionCount": {
+      "2019": 8,
+      "2020": 9,
+      "2021": 2,
+      "2022": 0,
+      "2023": 2,
+      "2024": 0,
+      "2025": 7
+    },
+    "questionSolved": 28,
+    "status": "Completed",
+    "isWeakChapter": false
+  },
+  {
+    "subject": "Mathematics",
+    "chapter": "Probability",
+    "class": "Class 12",
+    "unit": "Algebra",
+    "yearWiseQuestionCount": {
+      "2019": 4,
+      "2020": 6,
+      "2021": 2,
+      "2022": 4,
+      "2023": 5,
+      "2024": 9,
+      "2025": 5
+    },
+    "questionSolved": 35,
+    "status": "Completed",
+    "isWeakChapter": true
+  }
+]
