@@ -138,4 +138,4 @@ Custom middleware implemented using Upstash REST API to prevent abuse:
 
 ## 📜 License
 
-MIT License © [Your Name]
+MIT License © Sugata Laha
