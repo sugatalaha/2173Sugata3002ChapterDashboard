@@ -2,7 +2,7 @@ import { Chapter } from "../model/chapter.model.js";
 import redisClient from "../utils/redisClient.js";
 import fs from "fs";
 
-const uploadChapters=async (req, res) => {
+const uploadChapters = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
@@ -22,42 +22,35 @@ const uploadChapters=async (req, res) => {
         failed.push({ chapter: data.chapter, error: err.message });
       }
     }
+
     fs.unlink(req.file.path, (err) => {
       if (err) {
         console.error('Failed to delete file:', err);
       } else {
-        console.log('Temporary file deleted:', filePath);
+        console.log('Temporary file deleted');
       }
     });
-    await redisClient.flushAll(); // clears all cache keys, or selectively delete keys if needed
+
+    // Flush all Redis keys using REST
+    await redisClient.flushAll();
+
     res.json({ message: 'Upload complete', successCount: success.length, failed });
   } catch (err) {
-    res.status(500).json({ message: 'Internal Server error', error: err.message });
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
-}
+};
 
-const getChapters= async (req, res) => {
+const getChapters = async (req, res) => {
   try {
-    const { class: className, unit, subject, page = 1, limit = 10,isWeakChapter,status } = req.query;
+    const { class: className, unit, subject, page = 1, limit = 10, isWeakChapter, status } = req.query;
     const filter = {};
     if (className) filter.class = className;
     if (unit) filter.unit = unit;
     if (subject) filter.subject = subject;
-    if(isWeakChapter)
-    {
-        if(isWeakChapter==="true")
-        {
-            filter.isWeakChapter=true
-        }
-        else if(isWeakChapter==="false")
-        {
-            filter.isWeakChapter=false
-        }
-    }
-    if(status)
-    {
-        filter.status=status;
-    }
+    if (isWeakChapter === "true") filter.isWeakChapter = true;
+    else if (isWeakChapter === "false") filter.isWeakChapter = false;
+    if (status) filter.status = status;
+
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const [chapters, total] = await Promise.all([
@@ -65,37 +58,33 @@ const getChapters= async (req, res) => {
       Chapter.countDocuments(filter),
     ]);
 
-    const responseData={
+    const responseData = {
       total,
       page: parseInt(page),
       limit: parseInt(limit),
       results: chapters,
-    }
-    // Save to Redis
+    };
+
+    // Save to Redis via Upstash REST API
     const cacheKey = res.locals.cacheKey;
     if (cacheKey) {
-      await redisClient.setEx(cacheKey, 3600, JSON.stringify(responseData)); // 1 hr
+      await redisClient.setEx(cacheKey, 3600, JSON.stringify(responseData)); // 1 hr TTL
     }
 
     return res.status(200).json(responseData);
   } catch (err) {
     res.status(500).json({ message: 'Error retrieving chapters', error: err.message });
   }
-}
+};
 
-const getChapterForId=async (req,res)=>
-{
-    try {
-        const {id}=req.params;
-        const chapter=await Chapter.findById(id);
-        return res.status(200).json({chapter:chapter,message:"Chapter fetched successfully"});
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({message:"Internal server error",error:error.message});
-    }
-}
+const getChapterForId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const chapter = await Chapter.findById(id);
+    return res.status(200).json({ chapter, message: "Chapter fetched successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
 
-export {uploadChapters,
-    getChapters,
-    getChapterForId
-}
+export { uploadChapters, getChapters, getChapterForId };
